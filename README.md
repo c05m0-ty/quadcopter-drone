@@ -1,2 +1,2 @@
 # quadcopter-drone
-a repository for quadcopter drone as 啊
+a repository for quadcopter drone as early trial
