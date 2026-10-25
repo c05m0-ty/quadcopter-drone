@@ -1,0 +1,18 @@
+Dependencies for Project 'JHEF722PRO', Target 'JHEF722PRO': (DO NOT MODIFY !)
+F (D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Source\Templates\arm\startup_stm32f722xx.s)(0x58663AD6)(--cpu Cortex-M7.fp.sp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_JHEF722PRO-I"D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include"-I"D:\Program Files\Keil_v5\ARM\CMSIS\Include"--pd "__UVISION_VERSION SETA 524" --pd "STM32F722xx SETA 1"--list ./listings/\startup_stm32f722xx.lst --xref -o objects\startup_stm32f722xx.o --depend objects\startup_stm32f722xx.d)
+F (D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Source\Templates\system_stm32f7xx.c)(0x58663AD6)(-c --cpu Cortex-M7.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include" -I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include" --C99-I.\RTE\_JHEF722PRO-I"D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include"-I"D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="524" -DSTM32F722xx -DSTM32F722xx -DHSE_VALUE="8000000"-o objects\system_stm32f7xx.o --omf_browse objects\system_stm32f7xx.crf --depend objects\system_stm32f7xx.d)
+I (D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include\stm32f7xx.h)(0x58663ADE)
+I (D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include\stm32f722xx.h)(0x58663ADE)
+I (D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\core_cm7.h)(0x5898498A)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_compiler.h)(0x5898498A)
+I (D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_armcc.h)(0x5898498A)
+I (D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include\system_stm32f7xx.h)(0x58663ADE)
+F (main.c)(0x6ADE202B)(-c --cpu Cortex-M7.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include" -I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include" --C99-I.\RTE\_JHEF722PRO-I"D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include"-I"D:\Program Files\Keil_v5\ARM\CMSIS\Include"-D__UVISION_VERSION="524" -DSTM32F722xx -DSTM32F722xx -DHSE_VALUE="8000000"-o objects\main.o --omf_browse objects\main.crf --depend objects\main.d)
+I (D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include\stm32f7xx.h)(0x58663ADE)
+I (D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include\stm32f722xx.h)(0x58663ADE)
+I (D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\core_cm7.h)(0x5898498A)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_compiler.h)(0x5898498A)
+I (D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_armcc.h)(0x5898498A)
+I (D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include\system_stm32f7xx.h)(0x58663ADE)
