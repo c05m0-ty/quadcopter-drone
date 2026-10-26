@@ -52,7 +52,7 @@
           <OutputName>JHEF722PRO</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>./Listings/\</ListingPath>
@@ -334,9 +334,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--C99</MiscControls>
-              <Define>STM32F722xx,HSE_VALUE=8000000</Define>
+              <Define>USE_HAL_DRIVER,STM32F722xx,HSE_VALUE=8000000</Define>
               <Undefine></Undefine>
-              <IncludePath>D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include;D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include</IncludePath>
+              <IncludePath>.;Hardware\USB;Library\STM32F7xx_HAL_Driver\Inc;Library\CMSIS\Device\ST\STM32F7xx\Include;Library\STM32_USB_Device_Library\Core\Inc;Library\STM32_USB_Device_Library\Class\CDC\Inc;Library\CMSIS\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -383,12 +383,17 @@
             <File>
               <FileName>startup_stm32f722xx.s</FileName>
               <FileType>2</FileType>
-              <FilePath>D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Source\Templates\arm\startup_stm32f722xx.s</FilePath>
+              <FilePath>startup_stm32f722xx.s</FilePath>
+            </File>
+            <File>
+              <FileName>fault_handlers.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>fault_handlers.s</FilePath>
             </File>
             <File>
               <FileName>system_stm32f7xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Source\Templates\system_stm32f7xx.c</FilePath>
+              <FilePath>Library\CMSIS\Device\ST\STM32F7xx\Source\Templates\system_stm32f7xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -400,6 +405,74 @@
               <FileType>1</FileType>
               <FilePath>main.c</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>USB CDC</GroupName>
+          <Files>
+            <File>
+              <FileName>usbd_conf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Hardware\USB\usbd_conf.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_desc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Hardware\USB\usbd_desc.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_cdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Hardware\USB\usb_cdc.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>USB Device Core</GroupName>
+          <Files>
+            <File>
+              <FileName>usbd_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Library\STM32_USB_Device_Library\Core\Src\usbd_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_ctlreq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Library\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_ioreq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Library\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>USB CDC Class</GroupName>
+          <Files>
+            <File>
+              <FileName>usbd_cdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Library\STM32_USB_Device_Library\Class\CDC\Src\usbd_cdc.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>STM32 HAL</GroupName>
+          <Files>
+            <File><FileName>stm32f7xx_hal.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal.c</FilePath></File>
+            <File><FileName>stm32f7xx_hal_cortex.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c</FilePath></File>
+            <File><FileName>stm32f7xx_hal_dma.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma.c</FilePath></File>
+            <File><FileName>stm32f7xx_hal_flash.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash.c</FilePath></File>
+            <File><FileName>stm32f7xx_hal_flash_ex.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash_ex.c</FilePath></File>
+            <File><FileName>stm32f7xx_hal_gpio.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_gpio.c</FilePath></File>
+            <File><FileName>stm32f7xx_hal_pcd.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd.c</FilePath></File>
+            <File><FileName>stm32f7xx_hal_pcd_ex.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd_ex.c</FilePath></File>
+            <File><FileName>stm32f7xx_hal_pwr.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pwr.c</FilePath></File>
+            <File><FileName>stm32f7xx_hal_pwr_ex.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pwr_ex.c</FilePath></File>
+            <File><FileName>stm32f7xx_hal_rcc.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc.c</FilePath></File>
+            <File><FileName>stm32f7xx_hal_rcc_ex.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc_ex.c</FilePath></File>
+            <File><FileName>stm32f7xx_ll_usb.c</FileName><FileType>1</FileType><FilePath>Library\STM32F7xx_HAL_Driver\Src\stm32f7xx_ll_usb.c</FilePath></File>
           </Files>
         </Group>
       </Groups>

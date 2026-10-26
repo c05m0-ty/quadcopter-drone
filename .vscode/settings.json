@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.c": "c",
+        "*.h": "c"
+    },
+    "files.exclude": {
+        "**/代码/BF逆向/工程/Objects": true,
+        "**/代码/BF逆向/工程/Listings": true
+    },
+    "search.exclude": {
+        "**/代码/BF逆向/工程/Objects": true,
+        "**/代码/BF逆向/工程/Listings": true
+    }
+}

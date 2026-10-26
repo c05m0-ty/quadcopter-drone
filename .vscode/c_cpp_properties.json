@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "name": "STM32F722RE (Keil)",
+            "includePath": [
+                "${workspaceFolder}/代码/BF逆向/工程",
+                "${workspaceFolder}/代码/BF逆向/工程/Hardware/USB",
+                "${workspaceFolder}/代码/BF逆向/工程/Library/STM32F7xx_HAL_Driver/Inc",
+                "${workspaceFolder}/代码/BF逆向/工程/Library/CMSIS/Device/ST/STM32F7xx/Include",
+                "${workspaceFolder}/代码/BF逆向/工程/Library/STM32_USB_Device_Library/Core/Inc",
+                "${workspaceFolder}/代码/BF逆向/工程/Library/STM32_USB_Device_Library/Class/CDC/Inc",
+                "${workspaceFolder}/代码/BF逆向/工程/Library/CMSIS/Include"
+            ],
+            "defines": [
+                "USE_HAL_DRIVER",
+                "STM32F722xx",
+                "HSE_VALUE=8000000"
+            ],
+            "compilerPath": "D:/Tools/more/mingw64/bin/gcc.exe",
+            "compilerArgs": [],
+            "cStandard": "c99",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "windows-gcc-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/代码/BF逆向/工程"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ],
+    "version": 4
+}

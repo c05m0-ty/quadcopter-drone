@@ -1,0 +1,35 @@
+objects\usbd_ioreq.o: Library\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c
+objects\usbd_ioreq.o: Library\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
+objects\usbd_ioreq.o: Library\STM32_USB_Device_Library\Core\Inc\usbd_def.h
+objects\usbd_ioreq.o: Hardware\USB\usbd_conf.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal.h
+objects\usbd_ioreq.o: .\stm32f7xx_hal_conf.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_rcc.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_def.h
+objects\usbd_ioreq.o: Library\CMSIS\Device\ST\STM32F7xx\Include\stm32f7xx.h
+objects\usbd_ioreq.o: Library\CMSIS\Device\ST\STM32F7xx\Include\stm32f722xx.h
+objects\usbd_ioreq.o: Library\CMSIS\Include\core_cm7.h
+objects\usbd_ioreq.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+objects\usbd_ioreq.o: Library\CMSIS\Include\cmsis_compiler.h
+objects\usbd_ioreq.o: Library\CMSIS\Include\cmsis_armcc.h
+objects\usbd_ioreq.o: Library\CMSIS\Device\ST\STM32F7xx\Include\system_stm32f7xx.h
+objects\usbd_ioreq.o: .\stm32f7xx_hal_conf.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\Legacy/stm32_hal_legacy.h
+objects\usbd_ioreq.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_rcc_ex.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio_ex.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma_ex.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_cortex.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash_ex.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr_ex.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_ll_usb.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd_ex.h
+objects\usbd_ioreq.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+objects\usbd_ioreq.o: Library\STM32_USB_Device_Library\Core\Inc\usbd_core.h
+objects\usbd_ioreq.o: Library\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
+objects\usbd_ioreq.o: Library\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h
