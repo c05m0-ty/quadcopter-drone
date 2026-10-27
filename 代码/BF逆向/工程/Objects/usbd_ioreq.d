@@ -29,6 +29,7 @@ objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr_ex.h
 objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd.h
 objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_ll_usb.h
 objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd_ex.h
+objects\usbd_ioreq.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_spi.h
 objects\usbd_ioreq.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 objects\usbd_ioreq.o: Library\STM32_USB_Device_Library\Core\Inc\usbd_core.h
 objects\usbd_ioreq.o: Library\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h

@@ -25,3 +25,4 @@ objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr_e
 objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd.h
 objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_ll_usb.h
 objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd_ex.h
+objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_spi.h

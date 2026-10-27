@@ -9,6 +9,7 @@
 #define HAL_PCD_MODULE_ENABLED
 #define HAL_PWR_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
+#define HAL_SPI_MODULE_ENABLED
 
 #if !defined(HSE_VALUE)
 #define HSE_VALUE                   8000000U
@@ -54,6 +55,10 @@
 
 #ifdef HAL_PCD_MODULE_ENABLED
 #include "stm32f7xx_hal_pcd.h"
+#endif
+
+#ifdef HAL_SPI_MODULE_ENABLED
+#include "stm32f7xx_hal_spi.h"
 #endif
 
 #ifdef USE_FULL_ASSERT

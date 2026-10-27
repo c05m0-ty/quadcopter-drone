@@ -1,0 +1,32 @@
+objects\gyro_attitude.o: Hardware\GYRO\gyro_attitude.c
+objects\gyro_attitude.o: Hardware\GYRO\gyro_attitude.h
+objects\gyro_attitude.o: Hardware\GYRO\gyro_sensor.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal.h
+objects\gyro_attitude.o: .\stm32f7xx_hal_conf.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_rcc.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_def.h
+objects\gyro_attitude.o: Library\CMSIS\Device\ST\STM32F7xx\Include\stm32f7xx.h
+objects\gyro_attitude.o: Library\CMSIS\Device\ST\STM32F7xx\Include\stm32f722xx.h
+objects\gyro_attitude.o: Library\CMSIS\Include\core_cm7.h
+objects\gyro_attitude.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+objects\gyro_attitude.o: Library\CMSIS\Include\cmsis_compiler.h
+objects\gyro_attitude.o: Library\CMSIS\Include\cmsis_armcc.h
+objects\gyro_attitude.o: Library\CMSIS\Device\ST\STM32F7xx\Include\system_stm32f7xx.h
+objects\gyro_attitude.o: .\stm32f7xx_hal_conf.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\Legacy/stm32_hal_legacy.h
+objects\gyro_attitude.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_rcc_ex.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio_ex.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma_ex.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_cortex.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash_ex.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr_ex.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_ll_usb.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd_ex.h
+objects\gyro_attitude.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_spi.h
+objects\gyro_attitude.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

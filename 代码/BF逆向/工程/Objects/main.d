@@ -26,4 +26,7 @@ objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr_ex.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_ll_usb.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd_ex.h
+objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_spi.h
+objects\main.o: Hardware\GYRO\gyro_attitude.h
+objects\main.o: Hardware\GYRO\gyro_sensor.h
 objects\main.o: Hardware\USB\usb_cdc.h

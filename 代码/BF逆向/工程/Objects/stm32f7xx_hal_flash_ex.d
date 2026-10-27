@@ -26,3 +26,4 @@ objects\stm32f7xx_hal_flash_ex.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal
 objects\stm32f7xx_hal_flash_ex.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd.h
 objects\stm32f7xx_hal_flash_ex.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_ll_usb.h
 objects\stm32f7xx_hal_flash_ex.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd_ex.h
+objects\stm32f7xx_hal_flash_ex.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_spi.h

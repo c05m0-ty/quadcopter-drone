@@ -5,6 +5,7 @@
 
 #define USB_CDC_RX_RING_SIZE       2048U
 #define USB_CDC_TX_TIMEOUT_MS      100U
+#define USB_CDC_TX_CHUNK_SIZE      63U
 
 extern volatile uint32_t usb_fault_stage;
 extern volatile uint8_t usb_cdc_class_init_seen;
@@ -346,8 +347,8 @@ uint32_t usb_cdc_write(const uint8_t *data, uint32_t length)
     while (written < length)
     {
         uint32_t remaining = length - written;
-        uint16_t chunk = (remaining > CDC_DATA_FS_MAX_PACKET_SIZE)
-            ? CDC_DATA_FS_MAX_PACKET_SIZE
+        uint16_t chunk = (remaining > USB_CDC_TX_CHUNK_SIZE)
+            ? USB_CDC_TX_CHUNK_SIZE
             : (uint16_t)remaining;
 
         if (cdc_transmit_packet(&data[written], chunk) != 0U)

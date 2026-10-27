@@ -10,6 +10,10 @@
 "objects\usbd_ctlreq.o"
 "objects\usbd_ioreq.o"
 "objects\usbd_cdc.o"
+"objects\gyro_spi.o"
+"objects\gyro_sensor.o"
+"objects\gyro_attitude.o"
+"objects\gyro_dma.o"
 "objects\stm32f7xx_hal.o"
 "objects\stm32f7xx_hal_cortex.o"
 "objects\stm32f7xx_hal_dma.o"
@@ -22,6 +26,7 @@
 "objects\stm32f7xx_hal_pwr_ex.o"
 "objects\stm32f7xx_hal_rcc.o"
 "objects\stm32f7xx_hal_rcc_ex.o"
+"objects\stm32f7xx_hal_spi.o"
 "objects\stm32f7xx_ll_usb.o"
 --library_type=microlib --strict --scatter "Objects\JHEF722PRO.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
