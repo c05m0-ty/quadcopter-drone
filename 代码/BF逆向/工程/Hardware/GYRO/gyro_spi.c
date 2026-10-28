@@ -7,6 +7,10 @@
 
 SPI_HandleTypeDef hgyro_spi;
 
+/**
+ * @brief 初始化 SPI1 的 GPIO、片选和 DMA 底层资源。
+ * @param hspi HAL SPI 句柄；仅处理 SPI1。
+ */
 void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 {
     GPIO_InitTypeDef gpio = {0};
@@ -37,6 +41,10 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
     (void)gyro_dma_init(hspi);
 }
 
+/**
+ * @brief 释放 SPI1 的 DMA、时钟和 GPIO 底层资源。
+ * @param hspi HAL SPI 句柄；仅处理 SPI1。
+ */
 void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
 {
     if (hspi->Instance != SPI1)
@@ -53,6 +61,14 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
                     GPIO_PIN_7);
 }
 
+/**
+ * @brief 按指定 SPI 模式、相位和分频配置并启动 SPI1。
+ * @param polarity 时钟极性。
+ * @param phase 时钟相位。
+ * @param prescaler SPI 波特率预分频值。
+ * @retval GYRO_SPI_OK 配置成功。
+ * @retval GYRO_SPI_ERROR HAL_SPI_Init 失败。
+ */
 uint8_t gyro_spi_configure(uint32_t polarity,
                            uint32_t phase,
                            uint32_t prescaler)
@@ -81,6 +97,10 @@ uint8_t gyro_spi_configure(uint32_t polarity,
     return GYRO_SPI_OK;
 }
 
+/**
+ * @brief 以 LSM6 系列传感器的 SPI Mode 3 默认参数初始化 SPI1。
+ * @return GYRO_SPI_OK 表示成功，否则返回 gyro_spi_configure 的错误码。
+ */
 uint8_t gyro_spi_init(void)
 {
     /* LSM6-family sensors use SPI mode 3 for normal 4-wire access. */
@@ -89,16 +109,31 @@ uint8_t gyro_spi_init(void)
                               SPI_BAUDRATEPRESCALER_32);
 }
 
+/**
+ * @brief 拉低 PA4 片选，使陀螺仪开始一次 SPI 事务。
+ */
 void gyro_spi_cs_low(void)
 {
     HAL_GPIO_WritePin(GYRO_CS_GPIO_PORT, GYRO_CS_PIN, GPIO_PIN_RESET);
 }
 
+/**
+ * @brief 拉高 PA4 片选，结束当前陀螺仪 SPI 事务。
+ */
 void gyro_spi_cs_high(void)
 {
     HAL_GPIO_WritePin(GYRO_CS_GPIO_PORT, GYRO_CS_PIN, GPIO_PIN_SET);
 }
 
+/**
+ * @brief 在 SPI1 上执行一次阻塞式全双工收发，并自动控制片选。
+ * @param tx_data 发送缓冲区。
+ * @param rx_data 接收缓冲区。
+ * @param length 传输字节数。
+ * @retval GYRO_SPI_OK 传输成功。
+ * @retval GYRO_SPI_BAD_PARAM 参数为空或长度为零。
+ * @retval GYRO_SPI_ERROR HAL 传输失败或超时。
+ */
 uint8_t gyro_spi_transfer(const uint8_t *tx_data,
                           uint8_t *rx_data,
                           uint16_t length)

@@ -11,7 +11,10 @@
 #define USBD_SELF_POWERED             0
 #define USBD_DEBUG_LEVEL              0
 
+/** @brief 从 USB 静态内存池返回一个分配块。 */
 void *USBD_malloc_impl(uint32_t size);
+
+/** @brief USB 静态内存池的释放接口，复位后允许复用该块。 */
 void USBD_free_impl(void *pointer);
 
 #define USBD_malloc                   USBD_malloc_impl

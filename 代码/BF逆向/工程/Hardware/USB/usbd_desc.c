@@ -67,6 +67,12 @@ __ALIGN_BEGIN static uint8_t USBD_StringSerial[USB_CDC_SERIAL_DESC_SIZE] __ALIGN
 
 __ALIGN_BEGIN static uint8_t USBD_StrDesc[USBD_MAX_STR_DESC_SIZ] __ALIGN_END;
 
+/**
+ * @brief 返回 USB 设备描述符。
+ * @param speed 当前 USB 速度，本描述符不区分速度。
+ * @param length 输出描述符长度。
+ * @return 设备描述符缓冲区指针。
+ */
 static uint8_t *device_descriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
     (void)speed;
@@ -74,6 +80,12 @@ static uint8_t *device_descriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     return USBD_DeviceDesc;
 }
 
+/**
+ * @brief 返回 USB 语言 ID 描述符。
+ * @param speed 当前 USB 速度，本描述符不区分速度。
+ * @param length 输出描述符长度。
+ * @return 语言 ID 描述符缓冲区指针。
+ */
 static uint8_t *langid_descriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
     (void)speed;
@@ -81,6 +93,12 @@ static uint8_t *langid_descriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     return USBD_LangIDDesc;
 }
 
+/**
+ * @brief 生成并返回 USB 制造商字符串描述符。
+ * @param speed 当前 USB 速度，本描述符不区分速度。
+ * @param length 输出描述符长度。
+ * @return 已填充的字符串描述符缓冲区指针。
+ */
 static uint8_t *manufacturer_descriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
     (void)speed;
@@ -88,6 +106,12 @@ static uint8_t *manufacturer_descriptor(USBD_SpeedTypeDef speed, uint16_t *lengt
     return USBD_StrDesc;
 }
 
+/**
+ * @brief 生成并返回 USB 产品字符串描述符。
+ * @param speed 当前 USB 速度，本描述符不区分速度。
+ * @param length 输出描述符长度。
+ * @return 已填充的字符串描述符缓冲区指针。
+ */
 static uint8_t *product_descriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
     (void)speed;
@@ -95,6 +119,12 @@ static uint8_t *product_descriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     return USBD_StrDesc;
 }
 
+/**
+ * @brief 返回固定的 USB 序列号字符串描述符。
+ * @param speed 当前 USB 速度，本描述符不区分速度。
+ * @param length 输出描述符长度。
+ * @return 序列号字符串描述符缓冲区指针。
+ */
 static uint8_t *serial_descriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
     (void)speed;
@@ -102,6 +132,12 @@ static uint8_t *serial_descriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     return USBD_StringSerial;
 }
 
+/**
+ * @brief 生成并返回 USB 配置字符串描述符。
+ * @param speed 当前 USB 速度，本描述符不区分速度。
+ * @param length 输出描述符长度。
+ * @return 已填充的字符串描述符缓冲区指针。
+ */
 static uint8_t *configuration_descriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
     (void)speed;
@@ -109,6 +145,12 @@ static uint8_t *configuration_descriptor(USBD_SpeedTypeDef speed, uint16_t *leng
     return USBD_StrDesc;
 }
 
+/**
+ * @brief 生成并返回 USB 接口字符串描述符。
+ * @param speed 当前 USB 速度，本描述符不区分速度。
+ * @param length 输出描述符长度。
+ * @return 已填充的字符串描述符缓冲区指针。
+ */
 static uint8_t *interface_descriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
     (void)speed;

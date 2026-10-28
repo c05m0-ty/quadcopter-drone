@@ -67,6 +67,11 @@ static GYRO_DMA_ALIGN uint8_t
     gyro_fifo_rx_data[(GYRO_FIFO_MAX_RECORDS * 7U) + 1U];
 static uint16_t gyro_fifo_active_records;
 
+/**
+ * @brief 将 12 字节小端原始数据解析为三轴陀螺仪和三轴加速度计样本。
+ * @param data 从 OUTX_L_G 开始连续读取的 12 字节。
+ * @param sample 解析后的输出样本。
+ */
 static void gyro_sensor_parse_sample(const uint8_t *data,
                                      gyro_sensor_sample_t *sample)
 {
@@ -84,6 +89,9 @@ static void gyro_sensor_parse_sample(const uint8_t *data,
                                ((uint16_t)data[11] << 8));
 }
 
+/**
+ * @brief 将 PC3 配置为上升沿触发的 FIFO 数据就绪中断。
+ */
 static void gyro_sensor_irq_init(void)
 {
     GPIO_InitTypeDef gpio = {0};
@@ -102,6 +110,12 @@ static void gyro_sensor_irq_init(void)
     HAL_NVIC_EnableIRQ(EXTI3_IRQn);
 }
 
+/**
+ * @brief 向 LSM6 系列传感器写入一个 8 位寄存器。
+ * @param reg 寄存器地址。
+ * @param value 要写入的值。
+ * @return GYRO_SPI_OK 表示成功，否则为 SPI 层错误码。
+ */
 static uint8_t gyro_sensor_write_register(uint8_t reg, uint8_t value)
 {
     uint8_t tx_data[2];
@@ -113,6 +127,16 @@ static uint8_t gyro_sensor_write_register(uint8_t reg, uint8_t value)
     return gyro_spi_transfer(tx_data, rx_data, sizeof(tx_data));
 }
 
+/**
+ * @brief 从指定寄存器开始连续读取最多 12 个字节。
+ * @param reg 起始寄存器地址，不含 SPI 读标志。
+ * @param data 接收数据缓冲区。
+ * @param length 要读取的字节数，范围为 1 至 12。
+ * @retval GYRO_SPI_OK 读取成功。
+ * @retval GYRO_SPI_BAD_PARAM 参数无效或长度超限。
+ * @retval GYRO_SPI_ERROR SPI 传输失败。
+ * @note 函数会自动丢弃读取命令阶段返回的第一个字节。
+ */
 static uint8_t gyro_sensor_read_registers(uint8_t reg,
                                           uint8_t *data,
                                           uint16_t length)
@@ -146,6 +170,16 @@ static uint8_t gyro_sensor_read_registers(uint8_t reg,
     return GYRO_SPI_OK;
 }
 
+/**
+ * @brief 使用一组 SPI 参数读取传感器 WHO_AM_I 身份字节。
+ * @param polarity SPI 时钟极性。
+ * @param phase SPI 时钟相位。
+ * @param prescaler SPI 波特率预分频值。
+ * @param identity 输出身份字节的指针。
+ * @retval GYRO_SENSOR_OK 读取成功。
+ * @retval GYRO_SENSOR_SPI_INIT_FAIL SPI 配置失败。
+ * @retval GYRO_SENSOR_READ_FAIL 参数或传输失败。
+ */
 static uint8_t gyro_sensor_read_identity(uint32_t polarity,
                                          uint32_t phase,
                                          uint32_t prescaler,
@@ -180,6 +214,15 @@ static uint8_t gyro_sensor_read_identity(uint32_t polarity,
     return GYRO_SENSOR_OK;
 }
 
+/**
+ * @brief 重试读取 WHO_AM_I，规避传感器上电初期的无效 0x00/0xFF。
+ * @param polarity SPI 时钟极性。
+ * @param phase SPI 时钟相位。
+ * @param prescaler SPI 波特率预分频值。
+ * @param identity 输出身份字节的指针。
+ * @return 读取流程正常结束时返回 GYRO_SENSOR_OK，否则返回读取错误码。
+ * @note 最多尝试 5 次；非 0x00 且非 0xFF 的身份值会提前返回。
+ */
 static uint8_t gyro_sensor_read_identity_retry(uint32_t polarity,
                                                uint32_t phase,
                                                uint32_t prescaler,
@@ -208,6 +251,12 @@ static uint8_t gyro_sensor_read_identity_retry(uint32_t polarity,
     return GYRO_SENSOR_OK;
 }
 
+/**
+ * @brief 分别以 Mode 3/Mode 0 和快/慢 SPI 时钟探测传感器身份。
+ * @param identities 长度为 GYRO_PROBE_COUNT 的身份值输出数组。
+ * @retval GYRO_SENSOR_OK 所有探测均可完成。
+ * @retval GYRO_SENSOR_READ_FAIL 参数无效或任一次 SPI 通信失败。
+ */
 uint8_t gyro_sensor_probe(uint8_t identities[GYRO_PROBE_COUNT])
 {
     uint8_t status = GYRO_SENSOR_OK;
@@ -261,6 +310,15 @@ uint8_t gyro_sensor_probe(uint8_t identities[GYRO_PROBE_COUNT])
     return status;
 }
 
+/**
+ * @brief 识别、复位并配置陀螺仪和加速度计，关闭 FIFO 后初始化数据就绪中断。
+ * @param identity 输出读到的 WHO_AM_I 身份字节。
+ * @retval GYRO_SENSOR_OK 传感器初始化和配置成功。
+ * @retval GYRO_SENSOR_READ_FAIL SPI 读取失败或参数为空。
+ * @retval GYRO_SENSOR_WRONG_ID 芯片身份不是 LSM6DSK320X。
+ * @retval GYRO_SENSOR_RESET_FAIL 软件复位写入失败。
+ * @retval GYRO_SENSOR_CONFIG_FAIL 量程、滤波、采样率或 FIFO 配置失败。
+ */
 uint8_t gyro_sensor_init(uint8_t *identity)
 {
     uint8_t status;
@@ -338,6 +396,12 @@ uint8_t gyro_sensor_init(uint8_t *identity)
     return GYRO_SENSOR_OK;
 }
 
+/**
+ * @brief 设置 FIFO 水位并将传感器切入连续 FIFO 模式。
+ * @retval GYRO_SENSOR_OK FIFO 成功启用。
+ * @retval GYRO_SENSOR_CONFIG_FAIL 任一 FIFO 配置寄存器写入失败。
+ * @note FIFO 同时记录陀螺仪和加速度计，并通过 PC3 的 INT 信号通知 MCU。
+ */
 uint8_t gyro_sensor_enable_fifo(void)
 {
     gyro_data_ready = 0U;
@@ -364,6 +428,28 @@ uint8_t gyro_sensor_enable_fifo(void)
     return GYRO_SENSOR_OK;
 }
 
+/**
+ * @brief 中止残留 DMA、清除 PC3 挂起中断并重新同步连续 FIFO。
+ * @retval GYRO_SENSOR_OK FIFO 已重新启动。
+ * @retval GYRO_SENSOR_CONFIG_FAIL FIFO 重新配置失败。
+ * @note 重同步会从 Bypass 切回 Continuous，可丢弃已经积压或溢出的旧记录。
+ */
+uint8_t gyro_sensor_recover_fifo(void)
+{
+    gyro_data_ready = 0U;
+    (void)gyro_dma_abort();
+    __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_3);
+    HAL_NVIC_ClearPendingIRQ(EXTI3_IRQn);
+
+    return gyro_sensor_enable_fifo();
+}
+
+/**
+ * @brief 使用阻塞式 SPI 同步读取一组陀螺仪和加速度计原始数据。
+ * @param sample 解析后的输出样本。
+ * @retval GYRO_SENSOR_OK 读取成功。
+ * @retval GYRO_SENSOR_READ_FAIL 参数无效或 SPI 读取失败。
+ */
 uint8_t gyro_sensor_read(gyro_sensor_sample_t *sample)
 {
     uint8_t data[12];
@@ -385,6 +471,13 @@ uint8_t gyro_sensor_read(gyro_sensor_sample_t *sample)
     return GYRO_SENSOR_OK;
 }
 
+/**
+ * @brief 启动一次固定 12 字节的传感器数据 DMA 读取。
+ * @retval GYRO_SENSOR_OK DMA 读取已启动。
+ * @retval GYRO_SENSOR_DMA_BUSY DMA 正忙。
+ * @retval GYRO_SENSOR_READ_FAIL DMA 启动失败。
+ * @note 该接口读取 OUTX_L_G 的普通寄存器区，不解析 FIFO 标签。
+ */
 uint8_t gyro_sensor_start_dma_read(void)
 {
     uint16_t index;
@@ -405,6 +498,13 @@ uint8_t gyro_sensor_start_dma_read(void)
             : GYRO_SENSOR_READ_FAIL);
 }
 
+/**
+ * @brief 检查并完成一次固定长度 DMA 读取，将接收数据解析为传感器样本。
+ * @param sample 解析后的输出样本。
+ * @retval GYRO_SENSOR_OK 数据已经完整接收并解析。
+ * @retval GYRO_SENSOR_DMA_BUSY 传输尚未完成。
+ * @retval GYRO_SENSOR_READ_FAIL 参数无效或传输发生错误。
+ */
 uint8_t gyro_sensor_finish_dma_read(gyro_sensor_sample_t *sample)
 {
     if (sample == 0)
@@ -426,6 +526,12 @@ uint8_t gyro_sensor_finish_dma_read(gyro_sensor_sample_t *sample)
     return GYRO_SENSOR_OK;
 }
 
+/**
+ * @brief 返回一种 FIFO 标签对应的有效载荷字节数。
+ * @param tag_sensor FIFO 标签中的传感器类型字段。
+ * @return 陀螺仪/加速度计为 6，温度为 2，时间戳为 4，配置变化为 0；
+ *         未知标签返回 0xFF。
+ */
 static uint8_t gyro_sensor_fifo_payload_length(uint8_t tag_sensor)
 {
     switch (tag_sensor)
@@ -448,6 +554,14 @@ static uint8_t gyro_sensor_fifo_payload_length(uint8_t tag_sensor)
     }
 }
 
+/**
+ * @brief 查询 FIFO 记录数并启动带标签的 FIFO 批量 DMA 读取。
+ * @retval GYRO_SENSOR_OK DMA 读取已启动。
+ * @retval GYRO_SENSOR_DMA_BUSY DMA 正忙。
+ * @retval GYRO_SENSOR_READ_FAIL FIFO 状态读取或 DMA 启动失败。
+ * @retval GYRO_SENSOR_NO_DATA FIFO 当前为空。
+ * @note 单次最多读取 GYRO_FIFO_MAX_RECORDS 条记录，每条最多 7 字节。
+ */
 uint8_t gyro_sensor_start_fifo_dma_read(void)
 {
     uint8_t fifo_status[2];
@@ -495,6 +609,13 @@ uint8_t gyro_sensor_start_fifo_dma_read(void)
         : GYRO_SENSOR_READ_FAIL;
 }
 
+/**
+ * @brief 完成 FIFO 批量 DMA 读取并解析陀螺仪、加速度计记录。
+ * @param batch 输出批次，包含所有陀螺仪样本和最近一组加速度计样本。
+ * @retval GYRO_SENSOR_OK 数据已经完整接收并解析。
+ * @retval GYRO_SENSOR_DMA_BUSY DMA 传输尚未完成。
+ * @retval GYRO_SENSOR_READ_FAIL 参数、传输、标签或载荷长度异常。
+ */
 uint8_t gyro_sensor_finish_fifo_dma_read(gyro_sensor_fifo_batch_t *batch)
 {
     uint16_t record;
@@ -587,11 +708,18 @@ uint8_t gyro_sensor_finish_fifo_dma_read(gyro_sensor_fifo_batch_t *batch)
     return GYRO_SENSOR_OK;
 }
 
+/**
+ * @brief 中止当前由传感器模块发起的 SPI DMA 读取。
+ */
 void gyro_sensor_abort_dma_read(void)
 {
     (void)gyro_dma_abort();
 }
 
+/**
+ * @brief 原子读取并清除“FIFO 数据就绪”标志。
+ * @return 1 表示自上次读取后发生过 PC3 中断，0 表示没有。
+ */
 uint8_t gyro_sensor_take_data_ready(void)
 {
     uint32_t primask = __get_PRIMASK();
@@ -608,6 +736,10 @@ uint8_t gyro_sensor_take_data_ready(void)
     return ready;
 }
 
+/**
+ * @brief HAL GPIO 外部中断回调，记录 PC3 上检测到的传感器就绪事件。
+ * @param GPIO_Pin 触发回调的 GPIO 引脚掩码。
+ */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
     if (GPIO_Pin == GPIO_PIN_3)
@@ -616,16 +748,31 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     }
 }
 
+/**
+ * @brief EXTI3 中断入口，将 PC3 中断转交给 HAL GPIO 扩展中断处理。
+ */
 void EXTI3_IRQHandler(void)
 {
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);
 }
 
+/**
+ * @brief 将陀螺仪原始值换算为百分之一度每秒。
+ * @param raw 陀螺仪原始 16 位值。
+ * @return 换算后的 centidps 值。
+ * @note 当前按 2000 dps 量程，灵敏度约为 0.07 dps/LSB。
+ */
 int32_t gyro_sensor_raw_to_centidps(int16_t raw)
 {
     return (int32_t)raw * 7;
 }
 
+/**
+ * @brief 将加速度计原始值换算为百分之一重力加速度。
+ * @param raw 加速度计原始 16 位值。
+ * @return 换算后的 centig 值。
+ * @note 当前按 16 g 量程，灵敏度约为 1/2048 g/LSB。
+ */
 int32_t gyro_sensor_raw_to_centig(int16_t raw)
 {
     return ((int32_t)raw * 100) / 2048;
