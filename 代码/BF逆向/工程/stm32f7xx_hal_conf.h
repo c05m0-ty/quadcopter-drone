@@ -2,10 +2,12 @@
 #define STM32F7XX_HAL_CONF_H
 
 #define HAL_MODULE_ENABLED
+#define HAL_ADC_MODULE_ENABLED
 #define HAL_CORTEX_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
 #define HAL_FLASH_MODULE_ENABLED
 #define HAL_GPIO_MODULE_ENABLED
+#define HAL_I2C_MODULE_ENABLED
 #define HAL_PCD_MODULE_ENABLED
 #define HAL_PWR_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
@@ -39,6 +41,14 @@
 
 #ifdef HAL_DMA_MODULE_ENABLED
 #include "stm32f7xx_hal_dma.h"
+#endif
+
+#ifdef HAL_I2C_MODULE_ENABLED
+#include "stm32f7xx_hal_i2c.h"
+#endif
+
+#ifdef HAL_ADC_MODULE_ENABLED
+#include "stm32f7xx_hal_adc.h"
 #endif
 
 #ifdef HAL_CORTEX_MODULE_ENABLED

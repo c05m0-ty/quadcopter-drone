@@ -1,0 +1,34 @@
+objects\power_adc.o: Hardware\ADC\power_adc.c
+objects\power_adc.o: Hardware\ADC\power_adc.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal.h
+objects\power_adc.o: .\stm32f7xx_hal_conf.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_rcc.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_def.h
+objects\power_adc.o: Library\CMSIS\Device\ST\STM32F7xx\Include\stm32f7xx.h
+objects\power_adc.o: Library\CMSIS\Device\ST\STM32F7xx\Include\stm32f722xx.h
+objects\power_adc.o: Library\CMSIS\Include\core_cm7.h
+objects\power_adc.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+objects\power_adc.o: Library\CMSIS\Include\cmsis_compiler.h
+objects\power_adc.o: Library\CMSIS\Include\cmsis_armcc.h
+objects\power_adc.o: Library\CMSIS\Device\ST\STM32F7xx\Include\system_stm32f7xx.h
+objects\power_adc.o: .\stm32f7xx_hal_conf.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\Legacy/stm32_hal_legacy.h
+objects\power_adc.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_rcc_ex.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio_ex.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma_ex.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_i2c.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_i2c_ex.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_adc.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_adc_ex.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_cortex.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash_ex.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr_ex.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_ll_usb.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd_ex.h
+objects\power_adc.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_spi.h

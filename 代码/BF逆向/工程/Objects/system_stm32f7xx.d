@@ -17,6 +17,10 @@ objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio.
 objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio_ex.h
 objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma.h
 objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma_ex.h
+objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_i2c.h
+objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_i2c_ex.h
+objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_adc.h
+objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_adc_ex.h
 objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_cortex.h
 objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash.h
 objects\system_stm32f7xx.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash_ex.h

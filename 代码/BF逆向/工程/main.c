@@ -1,4 +1,6 @@
 #include "stm32f7xx_hal.h"
+#include "dps310.h"
+#include "power_adc.h"
 #include "gyro_attitude.h"
 #include "gyro_sensor.h"
 #include "usb_cdc.h"
@@ -6,6 +8,12 @@
 #define LED_PIN 15U
 #define GYRO_STALE_TIMEOUT_MS     100U
 #define GYRO_RECOVERY_RETRY_MS    500U
+#define GYRO_ATTITUDE_OUTPUT_ENABLE 0U
+#define POWER_OUTPUT_ENABLE         0U
+#define BARO_OUTPUT_ENABLE          1U
+#define SENSOR_OUTPUT_ENABLE \
+    (GYRO_ATTITUDE_OUTPUT_ENABLE || \
+     POWER_OUTPUT_ENABLE || BARO_OUTPUT_ENABLE)
 
 extern volatile uint32_t usb_cdc_init_failure;
 
@@ -175,6 +183,7 @@ static uint32_t append_hex_byte(char *buffer,
     return position;
 }
 
+#if SENSOR_OUTPUT_ENABLE
 /**
  * @brief 将浮点数以四位小数格式追加到输出缓冲区。
  * @param buffer 目标缓冲区。
@@ -216,25 +225,57 @@ static uint32_t append_fixed4(char *buffer,
 }
 
 /**
- * @brief 将四元数格式化为 VOFA+ FireWater 的 w,x,y,z 单行文本。
+ * @brief 按输出开关将传感器数据格式化为 VOFA+ FireWater 单行文本。
  * @param buffer 输出缓冲区，末尾会写入 '\0'。
- * @param attitude 待格式化的四元数姿态。
+ * @param attitude 四元数姿态；当前输出开关关闭时不发送。
+ * @param power 待输出的电压、电流测量值。
+ * @param baro 待输出的气压和温度测量值。
  */
-static void format_attitude_line(char *buffer,
-                                 const gyro_attitude_t *attitude)
+static void format_output_line(char *buffer,
+                               const gyro_attitude_t *attitude,
+                               const power_measurement_t *power,
+                               const dps310_processed_t *baro)
 {
     uint32_t length;
 
-    length = append_fixed4(buffer, 0U, attitude->w);
+    length = 0U;
+#if GYRO_ATTITUDE_OUTPUT_ENABLE
+    length = append_fixed4(buffer, length, attitude->w);
     length = append_text(buffer, length, ",");
     length = append_fixed4(buffer, length, attitude->x);
     length = append_text(buffer, length, ",");
     length = append_fixed4(buffer, length, attitude->y);
     length = append_text(buffer, length, ",");
     length = append_fixed4(buffer, length, attitude->z);
+#else
+    (void)attitude;
+#endif
+#if POWER_OUTPUT_ENABLE
+#if GYRO_ATTITUDE_OUTPUT_ENABLE
+    length = append_text(buffer, length, ",");
+#endif
+    length = append_fixed4(buffer, length, power->voltage_v);
+    length = append_text(buffer, length, ",");
+    length = append_fixed4(buffer, length, power->current_a);
+#else
+    (void)power;
+#endif
+#if BARO_OUTPUT_ENABLE
+#if GYRO_ATTITUDE_OUTPUT_ENABLE || POWER_OUTPUT_ENABLE
+    length = append_text(buffer, length, ",");
+#endif
+    length = append_fixed4(buffer, length, baro->pressure_pa);
+    length = append_text(buffer, length, ",");
+    length = append_fixed4(buffer, length, baro->temperature_c);
+    length = append_text(buffer, length, ",");
+    length = append_fixed4(buffer, length, baro->altitude_relative_m);
+#else
+    (void)baro;
+#endif
     length = append_text(buffer, length, "\r\n");
     buffer[length] = '\0';
 }
+#endif
 
 /**
  * @brief 在故障处理路径中使用裸 SysTick 产生毫秒级阻塞延时。
@@ -361,9 +402,12 @@ int main(void)
     uint8_t receive_buffer[128];
     uint8_t gyro_identity = 0U;
     uint8_t gyro_status;
+    uint8_t power_status;
+    uint8_t baro_status;
     gyro_attitude_t current_attitude = {0};
     gyro_sensor_sample_t latest_accel = {0};
     uint8_t latest_accel_valid = 0U;
+    (void)attitude_valid;
 
     /* 初始化 HAL，并开启内存、总线和用法异常，便于故障时定位。 */
     HAL_Init();
@@ -390,6 +434,16 @@ int main(void)
     diagnostic_blinks(3U);
 
     gyro_status = gyro_sensor_init(&gyro_identity);
+    power_status = power_adc_init();
+    if (power_status != POWER_ADC_OK)
+    {
+        fault_blink_forever(18U);
+    }
+    baro_status = dps310_init();
+    if (baro_status != DPS310_OK)
+    {
+        fault_blink_forever(19U);
+    }
 
     /* 传感器初始化完成，LED 常亮表示程序已经进入主循环。 */
     last_toggle = HAL_GetTick();
@@ -568,19 +622,39 @@ int main(void)
             }
 
             /*
-             * 姿态以约 20 Hz 输出到 VOFA+，而不是按 1 kHz 原样发送，
-             * 以免串口和上位机被过量数据压垮。USB 忙时本帧直接丢弃，
-             * 50 ms 后再尝试，主循环不会停在发送端点上等待。
+             * 每 50 ms 更新传感器数据；当前只向 VOFA+ 输出气压和温度。
              */
             if ((ready_sent != 0U) &&
-                (attitude_valid != 0U) &&
                 ((now - last_output_tick) >= 50U))
             {
-                char attitude_line[64];
+                uint8_t output_valid = 1U;
+                power_measurement_t power;
+                dps310_processed_t baro;
 
-                format_attitude_line(attitude_line, &current_attitude);
+                power_adc_get_measurement(&power);
+                if (dps310_read_processed(&baro) != DPS310_OK)
+                {
+                    output_valid = 0U;
+                }
                 last_output_tick = now;
-                (void)usb_cdc_write_string(attitude_line);
+
+#if SENSOR_OUTPUT_ENABLE
+                if ((GYRO_ATTITUDE_OUTPUT_ENABLE == 0U) ||
+                    (attitude_valid != 0U))
+                {
+                    if (output_valid != 0U)
+                    {
+                        char output_line[64];
+
+                        format_output_line(output_line,
+                                           &current_attitude,
+                                           &power,
+                                           &baro);
+                        last_output_tick = now;
+                        (void)usb_cdc_write_string(output_line);
+                    }
+                }
+#endif
             }
 
             /* 接收上位机命令；当前只识别 z/Z，用于把当前姿态设为零点。 */
@@ -603,22 +677,36 @@ int main(void)
 
                 if (zero_requested != 0U)
                 {
-                    /*
-                     * 仅改变显示零点，不重置内部姿态；立即发送一次单位
-                     * 四元数，避免采集停滞时 z 命令看起来没有响应。
-                     */
+                    /* 仅改变显示零点，不重置内部姿态。 */
+#if SENSOR_OUTPUT_ENABLE
                     char zero_line[64];
+                    power_measurement_t power;
+                    dps310_processed_t baro;
+                    uint8_t output_valid;
+#endif
 
                     gyro_attitude_zero();
                     current_attitude.w = 1.0f;
                     current_attitude.x = 0.0f;
                     current_attitude.y = 0.0f;
                     current_attitude.z = 0.0f;
-                    format_attitude_line(zero_line, &current_attitude);
-                    if (usb_cdc_write_string(zero_line) != 0U)
+#if SENSOR_OUTPUT_ENABLE
+                    power_adc_get_measurement(&power);
+                    output_valid =
+                        (dps310_read_processed(&baro) == DPS310_OK)
+                        ? 1U : 0U;
+                    if (output_valid != 0U)
                     {
-                        last_output_tick = now;
+                        format_output_line(zero_line,
+                                           &current_attitude,
+                                           &power,
+                                           &baro);
+                        if (usb_cdc_write_string(zero_line) != 0U)
+                        {
+                            last_output_tick = now;
+                        }
                     }
+#endif
                     attitude_valid = 0U;
                 }
             }

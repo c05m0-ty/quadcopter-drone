@@ -18,6 +18,10 @@ objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio_ex.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma_ex.h
+objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_i2c.h
+objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_i2c_ex.h
+objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_adc.h
+objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_adc_ex.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_cortex.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash_ex.h
@@ -27,6 +31,8 @@ objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_ll_usb.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pcd_ex.h
 objects\main.o: Library\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_spi.h
+objects\main.o: Hardware\BARO\dps310.h
+objects\main.o: Hardware\ADC\power_adc.h
 objects\main.o: Hardware\GYRO\gyro_attitude.h
 objects\main.o: Hardware\GYRO\gyro_sensor.h
 objects\main.o: Hardware\USB\usb_cdc.h

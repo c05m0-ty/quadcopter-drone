@@ -6,6 +6,8 @@
                 "${workspaceFolder}/代码/BF逆向/工程",
                 "${workspaceFolder}/代码/BF逆向/工程/Hardware/USB",
                 "${workspaceFolder}/代码/BF逆向/工程/Hardware/GYRO",
+                "${workspaceFolder}/代码/BF逆向/工程/Hardware/ADC",
+                "${workspaceFolder}/代码/BF逆向/工程/Hardware/BARO",
                 "${workspaceFolder}/代码/BF逆向/工程/Library/STM32F7xx_HAL_Driver/Inc",
                 "${workspaceFolder}/代码/BF逆向/工程/Library/CMSIS/Device/ST/STM32F7xx/Include",
                 "${workspaceFolder}/代码/BF逆向/工程/Library/STM32_USB_Device_Library/Core/Inc",
